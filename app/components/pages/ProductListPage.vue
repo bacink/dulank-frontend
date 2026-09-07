@@ -30,16 +30,16 @@ useLegacyPage({
 <button class="nav-button" id="prev" type="button">❮</button>
 <div class="carousel-container">
 <div class="carousel" id="carousel">
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
-<div class="itemz"><img alt="Brandit" src="/images/brandit.png"/></div>
+<div class="itemz"><img alt="Brosur" src="/images/brosur.jpg"/></div>
+<div class="itemz"><img alt="Kaos" src="/images/kaos.jpg"/></div>
+<div class="itemz"><img alt="Sticker" src="/images/sticker.jpg"/></div>
+<div class="itemz"><img alt="Buku Yasin" src="/images/yasin.jpg"/></div>
+<div class="itemz"><img alt="Brosur" src="/images/brosur.jpg"/></div>
+<div class="itemz"><img alt="Kaos" src="/images/kaos.jpg"/></div>
+<div class="itemz"><img alt="Sticker" src="/images/sticker.jpg"/></div>
+<div class="itemz"><img alt="Buku Yasin" src="/images/yasin.jpg"/></div>
+<div class="itemz"><img alt="Brosur" src="/images/brosur.jpg"/></div>
+<div class="itemz"><img alt="Kaos" src="/images/kaos.jpg"/></div>
 
 </div>
 </div>
