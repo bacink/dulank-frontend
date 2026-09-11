@@ -14,6 +14,10 @@ useLegacyPage({
   ],
   "sweetAlert": true
 })
+
+const { data: cartItems } = await useFetch('/api/cart', {
+  key: 'cart'
+})
 </script>
 
 <template>
@@ -33,7 +37,7 @@ useLegacyPage({
 <div class="col-lg-8">
 <h1 class="fs-5">Your Cart</h1>
 
-<div class="card-product-list save-item">
+<div v-if="(cartItems as any[])?.length" v-for="item in (cartItems as any[])" :key="item.id" class="card-product-list save-item">
 
 <div class="align-items-center my-3">
 <div class="d-flex">
@@ -41,23 +45,23 @@ useLegacyPage({
 <input class="fs-4 form-check-input border-3" type="checkbox"/>
 </div>
 <div class="me-2">
-<img alt="Kaos" class="object-fit-cover rounded-2" height="64" src="/images/yasin.jpg" width="64"/>
+<img :alt="item.name" class="object-fit-cover rounded-2" height="64" :src="item.image" width="64"/>
 </div>
 <div class="ms-md-1 w-100">
 <div class="desc">
-<span class="fw-semibold">Yasin Tahlil</span>
-<div class="text-secondary text-standard">Brosur Full Color A4 (210x297 Milimeter), Art paper 150gr, Tanpa Laminasi, Tanpa Lipatan </div>
-<div class="text-standard">Rp<span class="price">65.000</span></div>
+<span class="fw-semibold">{{ item.name }}</span>
+<div v-if="item.spec" class="text-secondary text-standard">{{ item.spec }}</div>
+<div class="text-standard">Rp<span class="price">{{ formatRupiah(item.price) }}</span></div>
 </div>
 <div class="d-flex justify-content-end">
 <div class="mt-2 mt-md-0 text-center d-inline-block justify-content-between">
 <div class="d-flex mb-2 justify-md-content-center justify-content-end">
-<button class="quantity-btn quantity-minus" type="button">−</button>
-<input class="quantity-input number-separator form-control" inputmode="numeric" pattern="[0-9]*" type="text" value="10"/>
-<input class="quantity result-input" type="hidden" value="10"/>
+<button class="quantity-btn quantity-minus" type="button">&#8722;</button>
+<input class="quantity-input number-separator form-control" inputmode="numeric" pattern="[0-9]*" type="text" :value="item.quantity"/>
+<input class="quantity result-input" type="hidden" :value="item.quantity"/>
 <button class="quantity-btn quantity-plus" type="button">+</button>
 </div>
-<span class="fw-semibold text-dark total-item">Rp65.000</span>
+<span class="fw-semibold text-dark total-item">Rp{{ formatRupiah(item.price * item.quantity) }}</span>
 </div>
 </div>
 </div>
@@ -70,43 +74,13 @@ useLegacyPage({
 </div>
 </div>
 </div>
+</div>
 
-<div class="card-product-list save-item">
-
-<div class="align-items-center my-3">
-<div class="d-flex">
-<div class="me-3">
-<input class="fs-4 form-check-input border-3" type="checkbox"/>
-</div>
-<div class="me-2">
-<img alt="Kaos" class="object-fit-cover rounded-2" height="64" src="/images/brosur.jpg" width="64"/>
-</div>
-<div class="ms-md-1 w-100">
-<div class="desc">
-<span class="fw-semibold">Brosur Full Color</span>
-<div class="text-secondary text-standard">Brosur Full Color A4 (210x297 Milimeter), Art paper 150gr, Tanpa Laminasi, Tanpa Lipatan </div>
-<div class="text-standard">Rp<span class="price">65.000</span></div>
-</div>
-<div class="d-flex justify-content-end">
-<div class="mt-2 mt-md-0 text-center d-inline-block justify-content-between">
-<div class="d-flex mb-2 justify-md-content-center justify-content-end">
-<button class="quantity-btn quantity-minus" type="button">−</button>
-<input class="quantity-input number-separator form-control" inputmode="numeric" pattern="[0-9]*" type="text" value="10"/>
-<input class="quantity result-input" type="hidden" value="10"/>
-<button class="quantity-btn quantity-plus" type="button">+</button>
-</div>
-<span class="fw-semibold text-dark total-item">Rp65.000</span>
-</div>
-</div>
-</div>
-</div>
-<div class="d-flex justify-content-end mt-4">
-<div class="d-flex">
-<h5 class="mx-2 d-flex align-items-center add-wishlist-btn" role="button"><i class="bi bi-heart me-2 my-text-primary"></i><span class="text-standard my-text-primary">Add to Wishist</span></h5>
-</div>
-<h5 class="mx-2 d-flex align-items-center btn-remove-save" role="button"><i class="bi bi-trash me-2 my-text-primary"></i><span class="text-standard my-text-primary">Remove</span></h5>
-</div>
-</div>
+<div v-else class="empty-save-container d-none text-center py-5">
+<i class="fa-solid fa-cart-plus empty-save-icon fa-4x text-muted mb-4"></i>
+<h4>Your Cart is empty</h4>
+<p class="text-muted mb-4">You don't have any products added to cart yet.</p>
+<a class="btn btn-danger my-bg-primary px-4 py-2 rounded-0" href="#">Continue Shopping</a>
 </div>
 </div>
 
@@ -138,21 +112,11 @@ useLegacyPage({
 </div>
 </div>
 
-<div class="empty-save-container d-none text-center py-5">
-<i class="fa-solid fa-cart-plus empty-save-icon fa-4x text-muted mb-4"></i>
-<h4>Your Cart is empty</h4>
-<p class="text-muted mb-4">You don't have any products added to cart yet.</p>
-<a class="btn btn-danger my-bg-primary px-4 py-2 rounded-0" href="#">Continue Shopping</a>
-</div>
 </div>
 </main>
 <footer>
 <div><LayoutAppFooter /></div>
 </footer>
-
-
-
-
 
 
 

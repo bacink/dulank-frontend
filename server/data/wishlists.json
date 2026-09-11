@@ -1,0 +1,4 @@
+[
+  { "id": 1, "userId": 1, "productId": 1, "name": "Brosur Full Color A4", "image": "/images/brosur.jpg", "price": 65000, "spec": "A4, Art Paper 150gr, Tanpa Laminasi", "addedAt": "2025-05-01", "expireDate": "2025-06-25" },
+  { "id": 2, "userId": 1, "productId": 2, "name": "Kaos Custom Print", "image": "/images/kaos.jpg", "price": 85000, "spec": "M, Cotton Combed 30s, Sablon DTF", "addedAt": "2025-05-05", "expireDate": "2025-06-25" }
+]

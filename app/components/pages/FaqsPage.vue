@@ -10,6 +10,10 @@ useLegacyPage({
   ],
   "sweetAlert": false
 })
+
+const { data: faqs } = await useFetch('/api/faqs', {
+  key: 'faqs'
+})
 </script>
 
 <template>
@@ -29,67 +33,16 @@ useLegacyPage({
 							yang ingin kamu tanyakan.</p>
 </div>
 <div class="accordion" id="accordionExample">
-<div class="accordion-item">
+<div class="accordion-item" v-for="(faq, index) in (faqs as any[])" :key="faq.id">
 <h2 class="accordion-header">
 <button aria-controls="collapseOne" aria-expanded="true" class="accordion-button text-standard" data-bs-target="#collapseOne" data-bs-toggle="collapse" type="button">
-									Pertanyaan #1
-								</button>
+						{{ faq.question }}
+					</button>
 </h2>
-<div class="accordion-collapse collapse show" data-bs-parent="#accordionExample" id="collapseOne">
+<div class="accordion-collapse collapse show" data-bs-parent="#accordionExample" :id="`collapse-${index}`">
 <div class="accordion-body text-standard">
-<strong>This is the first item's accordion body.</strong> It is shown by default,
-									until the collapse
-									plugin adds the appropriate classes that we use to style each element. These classes
-									control the
-									overall appearance, as well as the showing and hiding via CSS transitions. You can
-									modify any of this
-									with custom CSS or overriding our default variables. It's also worth noting that
-									just about any HTML
-									can go within the <code>.accordion-body</code>, though the transition does limit
-									overflow.
-								</div>
+{{ faq.answer }}
 </div>
-</div>
-<div class="accordion-item">
-<h2 class="accordion-header">
-<button aria-controls="collapseTwo" aria-expanded="true" class="accordion-button text-standard" data-bs-target="#collapseTwo" data-bs-toggle="collapse" type="button">
-									Pertanyaan #2
-								</button>
-</h2>
-<div class="accordion-collapse collapse show" data-bs-parent="#accordionExample" id="collapseTwo">
-<div class="accordion-body text-standard">
-<strong>This is the first item's accordion body.</strong> It is shown by default,
-									until the collapse
-									plugin adds the appropriate classes that we use to style each element. These classes
-									control the
-									overall appearance, as well as the showing and hiding via CSS transitions. You can
-									modify any of this
-									with custom CSS or overriding our default variables. It's also worth noting that
-									just about any HTML
-									can go within the <code>.accordion-body</code>, though the transition does limit
-									overflow.
-								</div>
-</div>
-</div>
-<div class="accordion-item">
-<h2 class="accordion-header">
-<button aria-controls="collapseThree" aria-expanded="true" class="accordion-button text-standard" data-bs-target="#collapseThree" data-bs-toggle="collapse" type="button">
-									Pertanyaan #3
-								</button>
-</h2>
-<div class="accordion-collapse collapse show" data-bs-parent="#accordionExample" id="collapseThree">
-<div class="accordion-body text-standard">
-<strong>This is the first item's accordion body.</strong> It is shown by default,
-									until the collapse
-									plugin adds the appropriate classes that we use to style each element. These classes
-									control the
-									overall appearance, as well as the showing and hiding via CSS transitions. You can
-									modify any of this
-									with custom CSS or overriding our default variables. It's also worth noting that
-									just about any HTML
-									can go within the <code>.accordion-body</code>, though the transition does limit
-									overflow.
-								</div>
 </div>
 </div>
 </div>
@@ -100,8 +53,6 @@ useLegacyPage({
 <footer>
 <div><LayoutAppFooter /></div>
 </footer>
-
-
 
 
 

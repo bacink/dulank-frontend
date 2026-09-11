@@ -10,6 +10,10 @@ useLegacyPage({
   ],
   "sweetAlert": false
 })
+
+const { data: posts } = await useFetch('/api/blog?page=1&limit=10', {
+  key: 'blog-posts'
+})
 </script>
 
 <template>
@@ -27,58 +31,16 @@ useLegacyPage({
 <div class="col-lg-8">
 
 <div class="row g-4 mb-4">
-<a class="col-md-6 blog-card" href="/post">
+<a v-for="post in (posts as any[])" :key="post.id" class="col-md-6 blog-card" :href="`/post?slug=${post.slug}`">
 <div class="border-0">
-<img class="blog-img object-fit-cover w-100" src="/images/brosur.jpg"/>
+<img class="blog-img object-fit-cover w-100" :src="post.image"/>
 <div class="pb-2">
-<span class="my-3 d-inline-block border blog-badge rounded-pill py-1 px-2">TIPS & TRIKS</span>
-<h6 class="fw-semibold mb-2">Cara Efektif Meningkatkan Call To Action (CTA) untuk Digital Marketing</h6>
+<span class="my-3 d-inline-block border blog-badge rounded-pill py-1 px-2">{{ post.tags[0]?.toUpperCase() || 'UMUM' }}</span>
+<h6 class="fw-semibold mb-2">{{ post.title }}</h6>
 <div class="d-flex align-items-center text-muted">
-<span class="fw-semibold text-standard">Eriga Syifaudin</span>
+<span class="fw-semibold text-standard">{{ post.author }}</span>
 <span class="mx-1">-</span>
-<span class="text-standard">December 13, 2024</span>
-</div>
-</div>
-</div>
-</a>
-<a class="col-md-6 blog-card" href="/post">
-<div class="border-0">
-<img class="blog-img object-fit-cover w-100" src="/images/kaos.jpg"/>
-<div class="pb-2">
-<span class="my-3 d-inline-block border blog-badge rounded-pill py-1 px-2">UMUM</span>
-<h6 class="fw-semibold mb-2">Perbedaan IP Public dan IP Private: Panduan Lengkap</h6>
-<div class="d-flex align-items-center text-muted">
-<span class="fw-semibold text-standard">Eriga Syifaudin</span>
-<span class="mx-1">-</span>
-<span class="text-standard">September 8, 2024</span>
-</div>
-</div>
-</div>
-</a>
-<a class="col-md-6 blog-card" href="/post">
-<div class="border-0">
-<img class="blog-img object-fit-cover w-100" src="/images/sticker.jpg"/>
-<div class="pb-2">
-<span class="my-3 d-inline-block border blog-badge rounded-pill py-1 px-2">TIPS & TRIKS</span>
-<h6 class="fw-semibold mb-2">Cara Mengamankan Data di Cloud: Tips dan Trik Terbaik</h6>
-<div class="d-flex align-items-center text-muted">
-<span class="fw-semibold text-standard">Eriga Syifaudin</span>
-<span class="mx-1">-</span>
-<span class="text-standard">September 7, 2024</span>
-</div>
-</div>
-</div>
-</a>
-<a class="col-md-6 blog-card" href="/post">
-<div class="border-0">
-<img class="blog-img object-fit-cover w-100" src="/images/yasin.jpg"/>
-<div class="pb-2">
-<span class="my-3 d-inline-block border blog-badge rounded-pill py-1 px-2">TUTORIAL</span>
-<h6 class="fw-semibold mb-2">Rekomendasi 12 Situs Freelance Yang Dapat Menghasilkan Uang</h6>
-<div class="d-flex align-items-center text-muted">
-<span class="fw-semibold text-standard">Siti Rohmah Noviah</span>
-<span class="mx-1">-</span>
-<span class="text-standard">August 14, 2024</span>
+<span class="text-standard">{{ new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) }}</span>
 </div>
 </div>
 </div>
@@ -86,7 +48,7 @@ useLegacyPage({
 </div>
 
 <div class="d-flex align-items-center justify-content-center gap-2">
-<button class="btn btn-outline-secondary btn-sm" disabled="" type="button"><i class="bi bi-chevron-left"></i></button>
+<button class="btn btn-outline-secondary btn-sm" disabled type="button"><i class="bi bi-chevron-left"></i></button>
 <button class="btn btn-secondary btn-sm" type="button">1</button>
 <button class="btn btn-outline-secondary btn-sm" type="button">2</button>
 <button class="btn btn-outline-secondary btn-sm" type="button">3</button>
@@ -105,39 +67,12 @@ useLegacyPage({
 <div class="mb-4">
 <h6 class="fw-bold mb-3">Artikel Populer</h6>
 <ul class="list-unstyled sidebar-list">
-<li class="mb-4">
-<a class="d-flex align-items-center" href="/post">
-<img alt="pop1" class="me-3" height="64" src="/images/yasin.jpg" width="64"/>
+<li v-for="post in (posts as any[])" :key="post.id" class="mb-4">
+<a class="d-flex align-items-center" :href="`/post?slug=${post.slug}`">
+<img :alt="post.slug" class="me-3" height="64" :src="post.image" width="64"/>
 <div>
-<span class="fw-semibold small mb-1 text-decoration-none d-block">21+ Rekomendasi Template Blogger Gratis dan Responsive</span>
-<div class="text-muted text-standard">April 19, 2023</div>
-</div>
-</a>
-</li>
-<li class="mb-4">
-<a class="d-flex align-items-center" href="/post">
-<img alt="pop2" class="me-3" height="64" src="/images/kaos.jpg" width="64"/>
-<div>
-<span class="fw-semibold small mb-1 text-decoration-none d-block">7 Raksasa Industri Bisnis Indonesia Yang (segera) Bangkrut [Update 2018]</span>
-<div class="text-muted text-standard">July 21, 2017</div>
-</div>
-</a>
-</li>
-<li class="mb-4">
-<a class="d-flex align-items-center" href="/post">
-<img alt="pop3" class="me-3" height="64" src="/images/sticker.jpg" width="64"/>
-<div>
-<span class="fw-semibold small mb-1 text-decoration-none d-block">19 Istilah dalam Dunia Hacking yang Wajib Anak IT Ketahui</span>
-<div class="text-muted text-standard">March 31, 2020</div>
-</div>
-</a>
-</li>
-<li class="mb-4">
-<a class="d-flex align-items-center" href="/post">
-<img alt="pop4" class="me-3" height="64" src="/images/brosur.jpg" width="64"/>
-<div>
-<span class="fw-semibold small mb-1 text-decoration-none d-block">Cara Mudah Membuat LinkTree di Instagram untuk Bisnis Online</span>
-<div class="text-muted text-standard">June 3, 2020</div>
+<span class="fw-semibold small mb-1 text-decoration-none d-block">{{ post.title }}</span>
+<div class="text-muted text-standard">{{ new Date(post.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) }}</div>
 </div>
 </a>
 </li>
@@ -149,8 +84,6 @@ useLegacyPage({
 <footer>
 <div><LayoutAppFooter /></div>
 </footer>
-
-
 
 
 
