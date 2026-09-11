@@ -3,7 +3,12 @@ interface LegacyPageOptions {
   styles?: string[]
   scripts?: string[]
   sweetAlert?: boolean
+  onScriptsLoaded?: () => void
 }
+
+const loadedScripts = new Set<string>()
+let patchRefCount = 0
+let capturedCallbacks: EventListener[] = []
 
 export function useLegacyPage(options: LegacyPageOptions) {
   const links = [
@@ -23,11 +28,11 @@ export function useLegacyPage(options: LegacyPageOptions) {
       await loadExternalScript('https://cdn.jsdelivr.net/npm/sweetalert2@11.22.2/dist/sweetalert2.all.min.js')
     }
 
-    const callbacks: EventListener[] = []
+    patchRefCount++
     const originalAdd = document.addEventListener.bind(document)
     const patchedAdd: typeof document.addEventListener = ((type: string, listener: EventListenerOrEventListenerObject, opts?: boolean | AddEventListenerOptions) => {
       if (type === 'DOMContentLoaded') {
-        callbacks.push(typeof listener === 'function' ? listener : (e: Event) => listener.handleEvent(e))
+        capturedCallbacks.push(typeof listener === 'function' ? listener : (e: Event) => listener.handleEvent(e))
         return
       }
       return originalAdd(type, listener, opts as any)
@@ -36,22 +41,28 @@ export function useLegacyPage(options: LegacyPageOptions) {
     ;(document as any).addEventListener = patchedAdd
     try {
       for (const src of options.scripts || []) {
+        if (loadedScripts.has(src)) continue
+        loadedScripts.add(src)
         const response = await fetch(src)
         if (!response.ok) throw new Error(`Failed to load legacy script: ${src}`)
         const code = await response.text()
-        ;(0, eval)(`${code}
-//# sourceURL=${src}`)
+        const fn = new Function(code + `\n//# sourceURL=${src}`)
+        fn.call(window)
       }
     } catch (error) {
       console.error('[Dulank legacy runtime]', error)
     } finally {
-      ;(document as any).addEventListener = originalAdd
+      patchRefCount--
+      if (patchRefCount === 0) {
+        ;(document as any).addEventListener = originalAdd
+        const event = new Event('DOMContentLoaded')
+        capturedCallbacks.forEach(callback => {
+          try { callback.call(document, event) } catch (error) { console.error('[Dulank page init]', error) }
+        })
+        capturedCallbacks = []
+        options.onScriptsLoaded?.()
+      }
     }
-
-    const event = new Event('DOMContentLoaded')
-    callbacks.forEach(callback => {
-      try { callback.call(document, event) } catch (error) { console.error('[Dulank page init]', error) }
-    })
   })
 }
 

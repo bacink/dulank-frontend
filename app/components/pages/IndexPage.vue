@@ -11,6 +11,25 @@ useLegacyPage({
   ],
   "sweetAlert": false
 })
+
+const { data: products } = await useFetch('/api/products?limit=10', {
+  key: 'index-products'
+})
+
+const formatRupiah = (value: number) => String(value).replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+
+const featuredProducts = computed(() => {
+  if (!products.value?.length) return { brosur: null, yasin: null, kaos: null }
+  const brosur = products.value.find(p => p.image.includes('brosur'))
+  const yasin = products.value.find(p => p.image.includes('yasin'))
+  const kaos = products.value.find(p => p.image.includes('kaos'))
+  return { brosur, yasin, kaos }
+})
+
+const newProduct = computed(() => {
+  if (!products.value?.length) return null
+  return products.value.find(p => p.image.includes('sticker')) || null
+})
 </script>
 
 <template>
@@ -36,7 +55,7 @@ useLegacyPage({
 </div>
 </div>
 <div class="col-md-6 text-end">
-<img alt="" class="object-fit-cover w-100" id="inline-style-index-001" src="/images/brosur.jpg"/>
+<img alt="" class="object-fit-cover w-100" id="inline-style-index-001" :src="featuredProducts.brosur?.image || '/images/brosur.jpg'"/>
 </div>
 </div>
 </div>
@@ -51,7 +70,7 @@ useLegacyPage({
 </div>
 </div>
 <div class="col-md-6 text-end">
-<img alt="" class="object-fit-cover w-100" id="inline-style-index-002" src="/images/yasin.jpg"/>
+<img alt="" class="object-fit-cover w-100" id="inline-style-index-002" :src="featuredProducts.yasin?.image || '/images/yasin.jpg'"/>
 </div>
 </div>
 </div>
@@ -66,7 +85,7 @@ useLegacyPage({
 </div>
 </div>
 <div class="col-md-6 text-end">
-<img alt="" class="object-fit-cover w-100" id="inline-style-index-003" src="/images/kaos.jpg"/>
+<img alt="" class="object-fit-cover w-100" id="inline-style-index-003" :src="featuredProducts.kaos?.image || '/images/kaos.jpg'"/>
 </div>
 </div>
 </div>
@@ -89,26 +108,26 @@ useLegacyPage({
 <h5 class="mb-3">Produk Terlaris</h5>
 <div class="row mb-5">
 <div class="col-4">
-<img alt="" class="object-fit-cover w-100" src="/images/brosur.jpg"/>
+<img alt="" class="object-fit-cover w-100" :src="featuredProducts.brosur?.image || '/images/brosur.jpg'"/>
 </div>
 <div class="col-4">
-<img alt="" class="object-fit-cover w-100" src="/images/yasin.jpg"/>
+<img alt="" class="object-fit-cover w-100" :src="featuredProducts.yasin?.image || '/images/yasin.jpg'"/>
 </div>
 <div class="col-4">
-<img alt="" class="object-fit-cover w-100" src="/images/kaos.jpg"/>
+<img alt="" class="object-fit-cover w-100" :src="featuredProducts.kaos?.image || '/images/kaos.jpg'"/>
 </div>
 </div>
 
 <h5 class="mb-3">Produk Paket</h5>
 <div class="row mb-5">
 <div class="col-4">
-<img alt="" class="object-fit-cover w-100" src="/images/brosur.jpg"/>
+<img alt="" class="object-fit-cover w-100" :src="featuredProducts.brosur?.image || '/images/brosur.jpg'"/>
 </div>
 <div class="col-4">
-<img alt="" class="object-fit-cover w-100" src="/images/yasin.jpg"/>
+<img alt="" class="object-fit-cover w-100" :src="featuredProducts.yasin?.image || '/images/yasin.jpg'"/>
 </div>
 <div class="col-4">
-<img alt="" class="object-fit-cover w-100" src="/images/kaos.jpg"/>
+<img alt="" class="object-fit-cover w-100" :src="featuredProducts.kaos?.image || '/images/kaos.jpg'"/>
 </div>
 </div>
 </div>
@@ -122,7 +141,7 @@ useLegacyPage({
                         ratusan pelanggan individu maupun perusahaan untuk menangani berbagai jenis kebutuhan cetak, mulai dari sablon
                         kaos, cetak gelas custom, hingga produksi spanduk skala besar. Komitmen kami adalah memberikan hasil cetakan
                         yang tidak hanya berkualitas, tetapi juga tepat waktu, sesuai harapan, dan bernilai estetika tinggi. Dengan mengusung
-                        semangat “Cetak Apapun, Dulank Jawabannya”, kami terus mengembangkan layanan agar mampu mengikuti tren dan
+                        semangat "Cetak Apapun, Dulank Jawabannya", kami terus mengembangkan layanan agar mampu mengikuti tren dan
                         kebutuhan pasar yang terus berubah setiap tahunnya. Kepercayaan pelanggan menjadi pendorong utama kami untuk menjaga
                         integritas, profesionalisme, serta menjaga hubungan kerja jangka panjang yang saling menguntungkan.
                         Dulank tidak hanya mengandalkan peralatan modern dan teknologi cetak terkini, tetapi juga mengedepankan
@@ -140,7 +159,7 @@ useLegacyPage({
 </div>
 <div class="row mb-4 mb-md-0">
 <div class="col-md-6 mb-4 mb-md-0">
-<img alt="" class="object-fit-cover w-100" src="/images/brosur.jpg"/>
+<img alt="" class="object-fit-cover w-100" :src="featuredProducts.brosur?.image || '/images/brosur.jpg'"/>
 </div>
 <div class="col-md-6 d-flex align-items-center">
 <div class="text-center">
@@ -153,7 +172,7 @@ useLegacyPage({
 </div>
 <div class="row mb-4 mb-md-0">
 <div class="col-md-6 order-md-2 mb-4 mb-md-0">
-<img alt="" class="object-fit-cover w-100" src="/images/yasin.jpg"/>
+<img alt="" class="object-fit-cover w-100" :src="featuredProducts.yasin?.image || '/images/yasin.jpg'"/>
 </div>
 <div class="col-md-6 d-flex align-items-center order-md-1">
 <div class="text-center">
@@ -173,7 +192,7 @@ useLegacyPage({
 <h5 class="text-center">Article</h5>
 <div>
 <div class="d-flex align-items-center my-3">
-<img alt="thumb" class="me-3 object-fit-cover" id="inline-style-index-006" src="/images/brosur.jpg"/>
+<img alt="thumb" class="me-3 object-fit-cover" id="inline-style-index-006" :src="featuredProducts.brosur?.image || '/images/brosur.jpg'"/>
 <div>
 <div class="text-muted text-standard">Mei 9, 2025</div>
 <a class="fw-semibold text-standard" href="/post">Brosur Full Color</a>
@@ -181,7 +200,7 @@ useLegacyPage({
 </div>
 </div>
 <div class="d-flex align-items-center my-3">
-<img alt="thumb" class="me-3 object-fit-cover" id="inline-style-index-007" src="/images/sticker.jpg"/>
+<img alt="thumb" class="me-3 object-fit-cover" id="inline-style-index-007" :src="newProduct?.image || '/images/sticker.jpg'"/>
 <div>
 <div class="text-muted text-standard">Mei 8, 2025</div>
 <a class="fw-semibold text-standard" href="/post">Stiker</a>
@@ -215,17 +234,17 @@ useLegacyPage({
 <div class="row g-0">
 <div class="col-md-6">
 <div class="offer-modal-img h-100">
-<img alt="offer" class="img-fluid w-100 object-fit-cover" src="/images/brosur.jpg"/>
+<img alt="offer" class="img-fluid w-100 object-fit-cover" :src="featuredProducts.brosur?.image || '/images/brosur.jpg'"/>
 </div>
 </div>
 <div class="col-md-6">
 <div class="offer-modal-content p-4 p-md-5">
 <div class="text-center">
 <h5 class="offer-modal-subtitle mb-2">Special Ramadhan!</h5>
-<h3 class="offer-modal-title mb-2">Brosur Flyer ukuran A4</h3>
+<h3 class="offer-modal-title mb-2">{{ featuredProducts.brosur?.name || 'Brosur Flyer ukuran A4' }}</h3>
 <p class="offer-modal-desc mb-4">
-<span class="mb-2 d-block"><del>Rp90.000 - Rp400.000</del></span>
-<span class="font-weight-bold h4 font-italic">Rp50.000 - Rp300.000</span>
+<span class="mb-2 d-block"><del>Rp{{ formatRupiah(featuredProducts.brosur?.priceFrom || 90000) }} - Rp{{ formatRupiah(featuredProducts.brosur?.priceTo || 400000) }}</del></span>
+<span class="font-weight-bold h4 font-italic">Rp{{ formatRupiah(featuredProducts.brosur?.priceFrom || 50000) }} - Rp{{ formatRupiah(featuredProducts.brosur?.priceTo || 300000) }}</span>
 </p>
 <form class="offer-modal-form mb-4">
 <p>Promotion will ends on 1 April 2025!</p>
@@ -258,19 +277,17 @@ useLegacyPage({
 <div class="toast-body p-0">
 <div class="d-flex">
 <div class="product-toast-img">
-<img alt="New Product" class="img-fluid" src="/images/sticker.jpg"/>
+<img alt="New Product" class="img-fluid" :src="newProduct?.image || '/images/sticker.jpg'"/>
 </div>
 <div class="product-toast-content p-3">
-<h6 class="product-toast-title mb-1">Sticker A3+</h6>
-<p class="product-toast-price mb-1">Rp10.000 - Rp30.000</p>
+<h6 class="product-toast-title mb-1">{{ newProduct?.name || 'Sticker A3+' }}</h6>
+<p class="product-toast-price mb-1">Rp{{ formatRupiah(newProduct?.priceFrom || 10000) }} - Rp{{ formatRupiah(newProduct?.priceTo || 30000) }}</p>
 <a class="btn btn-sm btn-danger" href="#">View Product</a>
 </div>
 </div>
 </div>
 </div>
 </div>
-
-
 
 
 
