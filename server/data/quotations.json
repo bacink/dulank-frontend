@@ -1,0 +1,36 @@
+[
+  {
+    "id": "QT-001",
+    "userId": 1,
+    "date": "2025-05-01",
+    "status": "sent",
+    "items": [
+      { "productId": 1, "name": "Brosur Full Color A4", "quantity": 500, "spec": "A4, Art Paper 150gr, Doff Laminasi", "unitPrice": 45000, "total": 22500000 }
+    ],
+    "customerInfo": { "name": "PT. Maju Jaya", "email": "info@majujaya.com", "phone": "+6281234567890" },
+    "total": 22500000
+  },
+  {
+    "id": "QT-002",
+    "userId": 1,
+    "date": "2025-05-10",
+    "status": "pending",
+    "items": [
+      { "productId": 4, "name": "Buku Yasin", "quantity": 1000, "spec": "A5, Jilid Lem, HVS 70gr", "unitPrice": 8000, "total": 8000000 },
+      { "productId": 9, "name": "Kartu Nama", "quantity": 500, "spec": "Art Carton 310gr, Matte Laminasi", "unitPrice": 75000, "total": 37500000 }
+    ],
+    "customerInfo": { "name": "CV. Sejahtera", "email": "cs@sejahtera.com", "phone": "+6282345678901" },
+    "total": 45500000
+  },
+  {
+    "id": "QT-003",
+    "userId": 1,
+    "date": "2025-06-01",
+    "status": "draft",
+    "items": [
+      { "productId": 5, "name": "Banner Vinyl", "quantity": 20, "spec": "Vinyl 510gr, Lubang Tambang", "unitPrice": 35000, "total": 700000 }
+    ],
+    "customerInfo": { "name": "UD. Berkah", "email": "ud.berkah@gmail.com", "phone": "+6283456789012" },
+    "total": 700000
+  }
+]

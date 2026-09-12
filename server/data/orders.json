@@ -1,0 +1,72 @@
+[
+  {
+    "id": "2504027H2DQ68B",
+    "userId": 1,
+    "status": "delivered",
+    "date": "2025-04-14",
+    "items": [
+      { "productId": 1, "name": "Brosur Full Color A4", "quantity": 100, "price": 65000, "total": 650000 }
+    ],
+    "shippingAddress": {
+      "name": "Ahmad Dhani",
+      "phone": "(+62) 852053769",
+      "type": "Office",
+      "street": "Toko Kelontong Depan Desa Teluk Jambe, 515 Sarah Shore Suite 828, Port Kennethstad",
+      "district": "TELUK JAMBE TIMUR",
+      "city": "KAB. KARAWANG",
+      "province": "JAWA BARAT",
+      "postalCode": "41360",
+      "country": "ID"
+    },
+    "total": 650000,
+    "timeline": [
+      { "status": "ordered", "date": "2025-04-10 09:00 WIB" },
+      { "status": "proses", "date": "2025-04-11 08:30 WIB" },
+      { "status": "out-for-delivery", "date": "2025-04-14 10:33 WIB" },
+      { "status": "delivered", "date": "2025-04-14 14:00 WIB" }
+    ]
+  },
+  {
+    "id": "2505150A3CR79C",
+    "userId": 1,
+    "status": "proses",
+    "date": "2025-05-15",
+    "items": [
+      { "productId": 2, "name": "Kaos Custom Print", "quantity": 50, "price": 85000, "total": 425000 },
+      { "productId": 3, "name": "Sticker A3+", "quantity": 200, "price": 15000, "total": 300000 }
+    ],
+    "shippingAddress": {
+      "name": "Ahmad Dhani",
+      "phone": "(+62) 852053769",
+      "type": "Office",
+      "street": "Toko Kelontong Depan Desa Teluk Jambe",
+      "district": "TELUK JAMBE TIMUR",
+      "city": "KAB. KARAWANG",
+      "province": "JAWA BARAT",
+      "postalCode": "41360",
+      "country": "ID"
+    },
+    "total": 725000
+  },
+  {
+    "id": "2506012B4DS80D",
+    "userId": 1,
+    "status": "pending",
+    "date": "2025-06-01",
+    "items": [
+      { "productId": 5, "name": "Banner Vinyl", "quantity": 10, "price": 45000, "total": 450000 }
+    ],
+    "shippingAddress": {
+      "name": "Ahmad Dhani",
+      "phone": "(+62) 852053769",
+      "type": "Office",
+      "street": "Toko Kelontong Depan Desa Teluk Jambe",
+      "district": "TELUK JAMBE TIMUR",
+      "city": "KAB. KARAWANG",
+      "province": "JAWA BARAT",
+      "postalCode": "41360",
+      "country": "ID"
+    },
+    "total": 450000
+  }
+]
