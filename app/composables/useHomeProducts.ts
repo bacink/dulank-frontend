@@ -1,6 +1,6 @@
 import type { Product } from '#server/types/product'
 
-export async function useHomeProducts() {
+export function useHomeProducts() {
   const { data } = await useFetch('/api/products?limit=10', {
     key: 'index-products'
   })
