@@ -7,11 +7,11 @@ export function useHomeProducts() {
 
   const products = computed<Product[]>(() => data.value?.data ?? [])
 
-  const featuredProducts = computed(() => {
+  const featuredProducts = computed<{ brosur: Product | null; yasin: Product | null; kaos: Product | null }>(() => {
     if (!products.value.length) return { brosur: null, yasin: null, kaos: null }
-    const brosur = products.value.find(p => p.tags.includes('brosur') || p.image.includes('brosur'))
-    const yasin = products.value.find(p => p.tags.includes('yasin') || p.image.includes('yasin'))
-    const kaos = products.value.find(p => p.tags.includes('kaos') || p.image.includes('kaos'))
+    const brosur = products.value.find(p => p.tags.includes('brosur') || p.image.includes('brosur')) ?? null
+    const yasin = products.value.find(p => p.tags.includes('yasin') || p.image.includes('yasin')) ?? null
+    const kaos = products.value.find(p => p.tags.includes('kaos') || p.image.includes('kaos')) ?? null
     return { brosur, yasin, kaos }
   })
 
