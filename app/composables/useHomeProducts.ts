@@ -1,7 +1,7 @@
 import type { Product } from '#server/types/product'
 
 export function useHomeProducts() {
-  const { data } = await useFetch('/api/products?limit=10', {
+  const { data } = useFetch('/api/products?limit=10', {
     key: 'index-products'
   })
 
