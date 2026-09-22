@@ -1,10 +1,28 @@
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    subtotal?: number;
+    tax?: number;
+    total?: number;
+  }>(),
+  {
+    subtotal: 0,
+    tax: 0,
+    total: 0,
+  },
+);
+
+const money = (value: number) => `Rp${value.toLocaleString("id-ID")}`;
+</script>
+
 <template>
   <div class="col-lg-4 px-3 h-100 position-sticky top-0 w-full lg:w-4/12 px-4 h-full">
     <h1 class="fs-5 bg-light p-2 text-lg bg-gray-100" id="inline-style-cart-001">Order Summary</h1>
-    <div class="mb-3 mb-4"><span class="text-standard">PPN (11%)</span> <span class="float-end text-standard text-primary float-right">Rp0</span></div>
+    <div class="mb-3 mb-4"><span class="text-standard">Subtotal</span> <span class="float-end text-standard text-primary float-right">{{ money(subtotal) }}</span></div>
+    <div class="mb-3 mb-4"><span class="text-standard">PPN (11%)</span> <span class="float-end text-standard text-primary float-right">{{ money(tax) }}</span></div>
     <div class="mb-3 mt-2 mb-4">
       <div class="text-standard text-start text-left">Jumlah Total</div>
-      <h4 class="text-primary text-end text-right" id="grandTotal">Rp0</h4>
+      <h4 class="text-primary text-end text-right" id="grandTotal">{{ money(total) }}</h4>
     </div>
     <div class="alert alert-warning text-standard text-center d-none hidden rounded-md border p-4" id="update-info" role="alert">Silakan klik update keranjang belanja untuk memperbarui rangkuman belanja Anda!</div>
     <div class="alert alert-danger text-standard text-center d-none hidden rounded-md border p-4" id="job-name-info" role="alert">Silakan isi semua Job Name pada product yang dipilih!</div>

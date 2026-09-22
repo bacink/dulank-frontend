@@ -4,7 +4,7 @@
     document.querySelectorAll("[data-js-click=\"mesin-pond-001\"]").forEach((element) => {
       element.addEventListener("click", function (event) {
         const result = (function (event) {
-          formSearch.classList.toggle('d-none')
+          document.getElementById('formSearch')?.classList.toggle('d-none')
         }).call(this, event);
         if (result === false) {
           event.preventDefault();
@@ -48,7 +48,7 @@
     document.querySelectorAll("[data-js-click=\"mesin-pond-005\"]").forEach((element) => {
       element.addEventListener("click", function (event) {
         const result = (function (event) {
-          formSearchPisau.classList.toggle('d-none')
+          document.getElementById('formSearchPisau')?.classList.toggle('d-none')
         }).call(this, event);
         if (result === false) {
           event.preventDefault();

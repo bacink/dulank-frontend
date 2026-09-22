@@ -102,8 +102,6 @@ function initPrivacyTermsNavigation() {
 }
 
 function initSharedFragments() {
-    loadHTML('templates/navbar.html', 'navbar-placeholder');
-    loadHTML('templates/footer.html', 'footer-placeholder');
     loadHTML('templates/privacy-terms.html', 'privacy-terms-placeholder')
         .then(initPrivacyTermsNavigation);
 }
@@ -215,10 +213,12 @@ function isInProximity(fromElement, toElement, maxLevels) {
 }
 
 function initEnterNavigation() {
+    if (document.documentElement.dataset.enterNavigationReady === 'true') return;
+    document.documentElement.dataset.enterNavigationReady = 'true';
     const selector = 'input, textarea';
 
     document.addEventListener('keydown', event => {
-        if (event.key !== 'Enter' || !event.target.matches(selector)) return;
+        if (event.key !== 'Enter' || !event.target.matches(selector) || event.target.matches('input[type="search"]')) return;
 
         event.preventDefault();
         const activeElement = event.target;

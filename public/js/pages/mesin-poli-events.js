@@ -4,7 +4,7 @@
     document.querySelectorAll("[data-js-click=\"mesin-poli-001\"]").forEach((element) => {
       element.addEventListener("click", function (event) {
         const result = (function (event) {
-          formSearch.classList.toggle('d-none')
+          document.getElementById('formSearch')?.classList.toggle('d-none')
         }).call(this, event);
         if (result === false) {
           event.preventDefault();

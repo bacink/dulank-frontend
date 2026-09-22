@@ -8,6 +8,7 @@
         const updateCartBtn = document.getElementById('update-cart-btn');
         const checkoutBtn = document.getElementById('checkout-btn');
         const quotationBtn = document.getElementById('quotation-btn');
+        const updateInfo = document.getElementById('update-info');
         const dueDates = document.querySelectorAll('#due-date');
 
 
@@ -18,14 +19,15 @@
         }
 
         function updateCheckoutAndQuotationBtn() {
+            if (!checkoutBtn || !quotationBtn) return;
             if (isAllJobNameFilled()) {
                 checkoutBtn.classList.remove('disabled');
                 quotationBtn.classList.remove('disabled');
-                document.getElementById('job-name-info').classList.add('d-none');
+                document.getElementById('job-name-info')?.classList.add('d-none');
             } else {
                 checkoutBtn.classList.add('disabled');
                 quotationBtn.classList.add('disabled');
-                document.getElementById('job-name-info').classList.remove('d-none');
+                document.getElementById('job-name-info')?.classList.remove('d-none');
             }
         }
 
@@ -33,9 +35,9 @@
         function handleCheckoutOrQuotation(e, url) {
             if (!isAllJobNameFilled()) {
                 e.preventDefault();
-                document.getElementById('job-name-info').classList.remove('d-none');
-                checkoutBtn.classList.add('disabled');
-                quotationBtn.classList.add('disabled');
+                document.getElementById('job-name-info')?.classList.remove('d-none');
+                checkoutBtn?.classList.add('disabled');
+                quotationBtn?.classList.add('disabled');
                 // focus to empty job name
                 const jobName = document.querySelectorAll('.job-name')
                 for (let i = 0; i < jobName.length; i++) {
@@ -45,16 +47,16 @@
                     }
                 }
             } else {
-                document.getElementById('job-name-info').classList.add('d-none');
+                document.getElementById('job-name-info')?.classList.add('d-none');
                 window.location.href = url;
             }
         }
 
         // Pasang event listener pada tombol checkout & quotation
-        checkoutBtn.addEventListener('click', function (e) {
+        checkoutBtn?.addEventListener('click', function (e) {
             handleCheckoutOrQuotation(e, '/checkout');
         });
-        quotationBtn.addEventListener('click', function (e) {
+        quotationBtn?.addEventListener('click', function (e) {
             handleCheckoutOrQuotation(e, '/quotation-add');
         });
 
@@ -111,11 +113,22 @@
                         // Delete
                         siblings[i].classList.remove('selected')
                         // Set all siblings ribbon display none
-                        siblings[i].childNodes[1].classList.add('d-none')
+                        siblings[i].querySelector('.ribbon')?.classList.add('d-none')
                     }
                 }
-                btns.childNodes[1].classList.remove('d-none')
+                btns.querySelector('.ribbon')?.classList.remove('d-none')
                 // Add class to clicked variant
                 btns.classList.add('selected')
+
+                const action = btns.dataset.designLinkAction;
+                const designInput = btns.closest('.save-item')?.querySelector('.design-link-input');
+                if (designInput && action === 'show') {
+                    designInput.classList.remove('d-none');
+                    designInput.focus();
+                }
+                if (designInput && action === 'hide') {
+                    designInput.classList.add('d-none');
+                    designInput.value = '';
+                }
             })
         })

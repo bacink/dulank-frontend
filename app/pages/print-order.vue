@@ -1,1 +1,58 @@
-<template><PagesPrintOrderPage /></template>
+<script setup lang="ts">
+import type { Order } from "~/composables/useOrders";
+
+useLegacyPage({
+  title: "Print Order #60404168",
+  styles: [
+    "/css/style.css",
+    "/css/pages/print-order.css",
+    "/css/pages/print-order-inline.css",
+  ],
+  scripts: ["/js/pages/print-order.js"],
+  sweetAlert: false,
+});
+
+interface Billing {
+  id: string;
+  userId: number;
+  orderId?: string;
+  invoiceDate: string;
+  dueDate: string;
+  total: number;
+  status: string;
+}
+
+const route = useRoute();
+const invoiceId = computed(() => String(route.query.id || "600449168"));
+const { data: billingData } = useFetch<{ success: boolean; data: Billing[] }>(
+  "/api/billings?userId=1",
+);
+const bill = computed(
+  () => billingData.value?.data.find((item) => item.id === invoiceId.value) ?? null,
+);
+const orderId = computed(() =>
+  String(route.query.orderId || bill.value?.orderId || "2504027H2DQ68B"),
+);
+const { data: orderData } = useFetch<{ success: boolean; data: Order }>(
+  () => `/api/orders/${orderId.value}`,
+);
+const order = computed(() => orderData.value?.data ?? null);
+</script>
+
+<template>
+  <div class="dulank-page dulank-page-print-order">
+    <div class="p-3 p-md-5">
+      <div>
+        <template v-if="bill && order">
+          <PagesPrintOrderInvoiceHeader :bill="bill" :order="order" />
+          <PagesPrintOrderCustomerDetails :order="order" />
+          <PagesPrintOrderOrderItemsTable :bill="bill" :order="order" />
+          <PagesPrintOrderPaymentSummary />
+          <PagesPrintOrderOrderInstructions />
+          <PagesPrintOrderOrderNotes />
+        </template>
+        <p v-else class="text-muted py-4">Memuat data invoice...</p>
+      </div>
+    </div>
+  </div>
+</template>

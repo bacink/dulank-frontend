@@ -15,11 +15,34 @@ const navbarType = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-white">
+  <div class="dulank-layout min-h-screen bg-white">
     <header v-if="navbarType !== 'page'" class="dulank-global-header">
       <LayoutCalculatorNavbar v-if="navbarType === 'calculator'" />
       <LayoutMainNavbar v-else />
     </header>
+<<<<<<< Updated upstream
     <slot />
+=======
+    <div class="dulank-layout-content">
+      <slot />
+    </div>
+    <LayoutAppFooter class="dulank-layout-footer" />
+>>>>>>> Stashed changes
   </div>
 </template>
+
+<style scoped>
+.dulank-layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.dulank-layout-content {
+  flex: 1 0 auto;
+}
+
+.dulank-layout-footer {
+  flex: 0 0 auto;
+}
+</style>

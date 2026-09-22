@@ -169,7 +169,10 @@
         const btn_input = document.querySelectorAll('.btn-spec');
         btn_input.forEach(btns => {
             btns.addEventListener('click',()=>{
-                satuan[btns.parentElement.id] = btns.textContent
+                const group = btns.parentElement.id
+                if (group === "unit" || group === "qty") {
+                    satuan[group] = btns.dataset.value || btns.textContent.trim()
+                }
                 const panjang = parseFloat(document.getElementById('panjang').value);
                 const lebar = parseFloat(document.getElementById('lebar').value);
                 let jumlah = parseInt(document.getElementById('jumlah').value);

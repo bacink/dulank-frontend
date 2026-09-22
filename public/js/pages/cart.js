@@ -9,9 +9,11 @@
         const updateCartBtn = document.getElementById('update-cart-btn');
         const checkoutBtn = document.getElementById('checkout-btn');
         const quotationBtn = document.getElementById('quotation-btn');
+        const updateInfo = document.getElementById('update-info');
         const dueDates = document.querySelectorAll('#due-date');
                         
         function handleCartCheckbox() {
+            if (!updateCartBtn || !updateInfo) return;
             const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
             if (anyChecked) {
                 updateCartBtn.classList.remove('d-none');
@@ -35,10 +37,10 @@
         }
         
         // Event listener untuk tombol update cart
-        updateCartBtn.addEventListener('click', function() {
+        updateCartBtn?.addEventListener('click', function() {
             // Enable tombol checkout & quotation
-            checkoutBtn.classList.remove('disabled');
-            quotationBtn.classList.remove('disabled');
+            checkoutBtn?.classList.remove('disabled');
+            quotationBtn?.classList.remove('disabled');
             // Hanya ubah due-date pada item yang dicentang
             checkboxes.forEach(cb => {
                 const dueDate = cb.closest('.card-product-list').querySelector('#due-date');

@@ -1,49 +1,40 @@
 # Component Structure
 
-Struktur `app/components` dipisahkan berdasarkan domain agar komponen tidak menumpuk hanya di folder `product`.
+Setiap route memiliki folder komponen sendiri di `app/components/pages`. Page hanya mengatur metadata, mengambil data, dan menyusun komponen berdasarkan tanggung jawab UI.
 
 ```text
 app/components/
-├── auth/
-│   └── Header.vue
-├── calculator/
-│   ├── Header.vue
-│   ├── Navbar.vue
-│   └── Sidebar.vue
-├── cart/
-│   └── OrderSummary.vue
-├── category/
-│   └── Card.vue
-├── common/
-│   ├── Breadcrumb.vue
-│   ├── EmptyState.vue
-│   └── QuantityControl.vue
 ├── layout/
-│   ├── AppFooter.vue
-│   ├── AppHeader.vue
-│   └── MainNavbar.vue
-├── legal/
-│   └── PrivacyTermsContent.vue
-├── pages/
-│   └── ... page-level components
+├── common/
 ├── product/
-│   ├── DesignCard.vue
-│   ├── PriceTable.vue
-│   ├── ProductCard.vue
-│   └── SpecSelector.vue
 ├── profile/
-│   ├── Header.vue
-│   └── Sidebar.vue
-├── quotation/
-│   └── SummaryRow.vue
-└── support/
-    └── TicketRow.vue
+└── pages/
+    ├── index/
+    │   ├── AboutSection.vue
+    │   ├── HeroCarousel.vue
+    │   └── ProductGroups.vue
+    ├── cart/
+    │   ├── CartItems.vue
+    │   ├── CheckoutSteps.vue
+    │   ├── EmptyCartState.vue
+    │   └── OrderSummary.vue
+    └── ... one folder per route
 ```
 
-## Prinsip
+## Rules
 
-- `pages/` berisi komponen utama per halaman.
-- Komponen yang digunakan lintas halaman dipindahkan ke folder domain masing-masing.
-- `common/` hanya untuk elemen generik yang dapat digunakan banyak domain.
-- Komponen kalkulator dan profil tidak lagi ditempatkan di `layout/`.
-- Struktur DOM/class penting untuk JavaScript legacy tetap dipertahankan agar fitur tidak berubah.
+- Component files use English names that describe their UI responsibility.
+- Route folders may retain Indonesian names because they correspond to existing URLs.
+- Generic page components such as `Content.vue` or `SomethingPage.vue` are not used.
+- Data lives in `server/data`, is exposed through `server/api`, and is read by composables.
+- Pages pass data into presentational components through typed props.
+- Important DOM IDs and classes remain unchanged for compatibility with legacy scripts.
+- Shared components stay in their domain folders instead of being duplicated per page.
+
+## Catalog data
+
+`server/data` menyimpan billing, alamat, klien, percetakan, toko kertas,
+mesin (`printing-machines.json`), pisau pond, harga/group/ukuran/jenis kertas,
+serta cart, wishlist, dan support ticket. Katalog dibaca melalui
+`/api/catalog/:kind`; billing dan alamat menggunakan endpoint per pengguna.
+Pencarian memfilter data tersebut, bukan daftar statis di template.

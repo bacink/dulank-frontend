@@ -1,6 +1,7 @@
 # Dulank Static → Nuxt 4 Migration
 
 ## Guarantees
+
 - All 55 source HTML pages are represented as Nuxt file-based routes.
 - Original page-specific JavaScript is retained under `public/legacy-js` and initialized after the Vue page mounts.
 - Shared fragments are Vue components under `app/components/layout` and are no longer fetched at runtime.
@@ -10,9 +11,11 @@
 - A small Bootstrap-API compatibility shim exists only so legacy calculator/modal/tab/dropdown scripts continue working while Bootstrap itself is absent.
 
 ## Structure
+
 Matches the reference repository style: `app/assets`, `app/components`, `app/layouts`, `app/pages`, `public`, `docs`, and `legacy`.
 
 ## Shared components
+
 - `LayoutMainNavbar`
 - `LayoutAppFooter`
 - `LayoutProfileSidebar`
@@ -21,20 +24,24 @@ Matches the reference repository style: `app/assets`, `app/components`, `app/lay
 - `LayoutCalculatorNavbar`
 - `LayoutPrivacyTermsContent`
 
-Each original HTML page also has a page component under `app/components/pages` and a thin route under `app/pages`.
+Each original HTML page has a route composer under `app/pages` and named UI components under `app/components/pages/<route>`.
 
 ## Run
+
 ```bash
 npm install
 npm run dev
 ```
+
 Production:
+
 ```bash
 npm run build
 npm run preview
 ```
 
 ## Validation status
+
 Static migration validation confirms 55/55 source pages are represented, no visible source text was dropped, all discovered internal HTML routes were mapped, page styles are present, Bootstrap framework CDN/runtime references are absent, and all 56 migrated JavaScript files pass `node --check`. TypeScript migration bridge files also pass a parser-level check.
 
 The conversion environment could not reach the npm registry (`EAI_AGAIN`), therefore `npm install`, Nuxt typecheck, and production build must be run in a network-enabled development environment.
