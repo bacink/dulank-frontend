@@ -18,7 +18,6 @@ const { posts } = useBlogPosts();
 
         <div class="col-lg-8">
           <PagesBlogArticleGrid :posts="posts" />
-
           <PagesBlogPaginationControls />
         </div>
 

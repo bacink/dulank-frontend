@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-<template><PagesCategoriesPage /></template>
-=======
 <script setup lang="ts">
 useLegacyPage({
   title: "Percetakan Dulank - Online Printing Shop",
@@ -33,4 +30,3 @@ const { saleBanners } = useSaleBanners();
     </main>
   </div>
 </template>
->>>>>>> Stashed changes

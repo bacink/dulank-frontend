@@ -12,7 +12,7 @@ useLegacyPage({
     <main>
       <div class="container my-5">
         <div class="row text-standard">
-          <PagesContactContactForm />
+          <PagesContactForm />
           <PagesContactStoreLocation />
         </div>
       </div>

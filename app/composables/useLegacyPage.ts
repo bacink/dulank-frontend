@@ -1,12 +1,4 @@
 interface LegacyPageOptions {
-<<<<<<< Updated upstream
-  title: string
-  styles?: string[]
-  scripts?: string[]
-  sweetAlert?: boolean
-}
-
-=======
   title: string;
   styles?: string[];
   scripts?: string[];
@@ -18,7 +10,6 @@ const scriptCache = new Map<string, string>();
 let patchRefCount = 0;
 let capturedCallbacks: EventListener[] = [];
 
->>>>>>> Stashed changes
 export function useLegacyPage(options: LegacyPageOptions) {
   const links = [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -63,14 +54,6 @@ export function useLegacyPage(options: LegacyPageOptions) {
       }
     }
 
-<<<<<<< Updated upstream
-    const callbacks: EventListener[] = []
-    const originalAdd = document.addEventListener.bind(document)
-    const patchedAdd: typeof document.addEventListener = ((type: string, listener: EventListenerOrEventListenerObject, opts?: boolean | AddEventListenerOptions) => {
-      if (type === 'DOMContentLoaded') {
-        callbacks.push(typeof listener === 'function' ? listener : (e: Event) => listener.handleEvent(e))
-        return
-=======
     patchRefCount++;
     const originalAdd = document.addEventListener.bind(document);
     const patchedAdd: typeof document.addEventListener = ((
@@ -82,32 +65,29 @@ export function useLegacyPage(options: LegacyPageOptions) {
         capturedCallbacks.push(
           typeof listener === "function"
             ? listener
-            : (e: Event) => listener.handleEvent(e),
+            : (event: Event) => listener.handleEvent(event),
         );
         return;
->>>>>>> Stashed changes
       }
+
       return originalAdd(type, listener, opts as any);
     }) as typeof document.addEventListener;
 
     (document as any).addEventListener = patchedAdd;
+
     try {
       for (const src of options.scripts || []) {
-<<<<<<< Updated upstream
-        const response = await fetch(src)
-        if (!response.ok) throw new Error(`Failed to load legacy script: ${src}`)
-        const code = await response.text()
-        ;(0, eval)(`${code}
-//# sourceURL=${src}`)
-=======
         let code = scriptCache.get(src);
+
         if (code === undefined) {
           const response = await fetch(src);
-          if (!response.ok)
+          if (!response.ok) {
             throw new Error(`Failed to load legacy script: ${src}`);
+          }
           code = await response.text();
           scriptCache.set(src, code);
         }
+
         // Legacy files were originally separate classic scripts. Keep their
         // declarations available to later files while avoiding top-level
         // const/let collisions when navigating between Nuxt pages.
@@ -129,28 +109,22 @@ export function useLegacyPage(options: LegacyPageOptions) {
             `};\n//# sourceURL=${src}`,
         );
         const exported = fn.call(window) as Record<string, unknown>;
+
         for (const [name, value] of Object.entries(exported)) {
-          if (typeof value === "function") (window as any)[name] = value;
+          if (typeof value === "function") {
+            (window as any)[name] = value;
+          }
         }
->>>>>>> Stashed changes
       }
     } catch (error) {
       console.error("[Dulank legacy runtime]", error);
     } finally {
-<<<<<<< Updated upstream
-      ;(document as any).addEventListener = originalAdd
-    }
-
-    const event = new Event('DOMContentLoaded')
-    callbacks.forEach(callback => {
-      try { callback.call(document, event) } catch (error) { console.error('[Dulank page init]', error) }
-    })
-  })
-=======
       patchRefCount--;
+
       if (patchRefCount === 0) {
         (document as any).addEventListener = originalAdd;
         const event = new Event("DOMContentLoaded");
+
         capturedCallbacks.forEach((callback) => {
           try {
             callback.call(document, event);
@@ -158,12 +132,12 @@ export function useLegacyPage(options: LegacyPageOptions) {
             console.error("[Dulank page init]", error);
           }
         });
+
         capturedCallbacks = [];
         options.onScriptsLoaded?.();
       }
     }
   });
->>>>>>> Stashed changes
 }
 
 function loadExternalScript(src: string) {
@@ -171,11 +145,16 @@ function loadExternalScript(src: string) {
     const existing = document.querySelector(
       `script[src="${src}"]`,
     ) as HTMLScriptElement | null;
+
     if (existing) {
-      if (existing.dataset.loaded === "true") resolve();
-      else existing.addEventListener("load", () => resolve(), { once: true });
+      if (existing.dataset.loaded === "true") {
+        resolve();
+      } else {
+        existing.addEventListener("load", () => resolve(), { once: true });
+      }
       return;
     }
+
     const script = document.createElement("script");
     script.src = src;
     script.async = true;

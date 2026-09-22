@@ -9,10 +9,11 @@ defineProps<{ faqs: FAQ[] }>();
     <div class="accordion-item" v-for="(faq, index) in faqs" :key="faq.id">
       <h2 class="accordion-header">
         <button
-          aria-controls="collapseOne"
-          aria-expanded="true"
+          :aria-controls="`collapse-${index}`"
+          :aria-expanded="index === 0"
           class="accordion-button text-standard"
-          data-bs-target="#collapseOne"
+          :class="{ collapsed: index !== 0 }"
+          :data-bs-target="`#collapse-${index}`"
           data-bs-toggle="collapse"
           type="button"
         >
@@ -20,7 +21,8 @@ defineProps<{ faqs: FAQ[] }>();
         </button>
       </h2>
       <div
-        class="accordion-collapse collapse show"
+        class="accordion-collapse collapse"
+        :class="{ show: index === 0 }"
         data-bs-parent="#accordionExample"
         :id="`collapse-${index}`"
       >

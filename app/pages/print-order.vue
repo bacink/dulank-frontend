@@ -46,10 +46,8 @@ const order = computed(() => orderData.value?.data ?? null);
         <template v-if="bill && order">
           <PagesPrintOrderInvoiceHeader :bill="bill" :order="order" />
           <PagesPrintOrderCustomerDetails :order="order" />
-          <PagesPrintOrderOrderItemsTable :bill="bill" :order="order" />
-          <PagesPrintOrderPaymentSummary />
-          <PagesPrintOrderOrderInstructions />
-          <PagesPrintOrderOrderNotes />
+          <PagesPrintOrderItemsTable :bill="bill" :order="order" />
+          <PagesPrintOrderInstructions />
         </template>
         <p v-else class="text-muted py-4">Memuat data invoice...</p>
       </div>

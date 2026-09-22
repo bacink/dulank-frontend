@@ -12,16 +12,17 @@ const subtotal = computed(() =>
 );
 const shippingCost = computed(() => Math.max(props.order.total - subtotal.value, 0));
 const tax = computed(() => Math.round(subtotal.value * 0.11));
+const itemAmount = (value: number) => money(value || props.bill.total || props.order.total);
 </script>
 
 <template>
   <div class="mb-3">
     <div class="fw-semibold text-standard mb-2">Invoice Items</div>
     <div class="table-responsive">
-      <table class="table table-bordered align-middle mb-0">
+      <table class="table table-bordered align-middle mb-0 print-order-items">
         <thead>
           <tr>
-            <th class="text-standard">Products</th>
+            <th class="text-standard text-center">Products</th>
             <th class="text-end text-standard">Amount</th>
           </tr>
         </thead>
@@ -31,14 +32,23 @@ const tax = computed(() => Math.round(subtotal.value * 0.11));
               <span class="fw-semibold text-standard">{{ item.name }}</span
               ><br /><br />
               <span class="text-standard fst-italic">Description:</span><br />
-              <span class="text-standard">Product ID: {{ item.productId }}</span>
-              <div class="d-flex justify-content-between">
-                <span class="text-standard"
-                  >{{ money(item.price) }} x {{ item.quantity }} Pcs</span
-                >
-              </div>
+              <span class="text-standard">{{ item.spec || "-" }}</span
+              ><br />
+              <span class="text-standard">Artwork : {{ item.artwork || "-" }}</span
+              ><br />
+              <span class="text-standard">
+                Hasil Cetak : {{ item.printResult || "-" }}
+              </span>
+              <br />
+              <span class="text-standard fst-italic">
+                Note: {{ item.note || "-" }}
+              </span>
+              <br />
+              <span class="text-standard">
+                {{ money(item.price) }} × {{ item.quantity }} Pcs
+              </span>
             </td>
-            <td class="text-end text-standard">{{ money(item.total) }}</td>
+            <td class="text-end text-standard">{{ itemAmount(item.total) }}</td>
           </tr>
           <tr>
             <td class="text-end text-standard fw-semibold" colspan="1">
@@ -84,3 +94,21 @@ const tax = computed(() => Math.round(subtotal.value * 0.11));
     </div>
   </div>
 </template>
+
+<style scoped>
+.print-order-items th:first-child,
+.print-order-items td:first-child {
+  width: 86%;
+}
+
+.print-order-items th:last-child,
+.print-order-items td:last-child {
+  width: 14%;
+  vertical-align: middle;
+}
+
+.print-order-items th,
+.print-order-items td {
+  border-color: #444;
+}
+</style>

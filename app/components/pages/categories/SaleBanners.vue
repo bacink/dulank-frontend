@@ -6,7 +6,7 @@ defineProps<{ saleBanners: SaleBanner[] }>();
 
 <template>
   <div class="row mb-4">
-    <div v-for="item in saleBanners" :key="item.id" class="col-md-7 p-2">
+    <div v-for="item in saleBanners" :key="item.id" class="col-md-6 p-2">
       <div class="bg-light rounded-1 h-100 category-sale" role="button">
         <div class="row">
           <div class="col-md-7 my-md-auto my-4 text-md-start text-center">

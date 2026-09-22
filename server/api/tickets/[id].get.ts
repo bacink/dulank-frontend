@@ -1,11 +1,17 @@
-import type { SupportTicket } from '#server/types/ticket'
+import type { SupportTicket } from "#server/types/ticket";
 
 export default defineEventHandler((event) => {
-  const id = getRouterParam(event, 'id')
-  if (!id) throw createError({ statusCode: 400, statusMessage: 'Ticket ID required' })
+  const id = getRouterParam(event, "id");
+  if (!id) {
+    throw createError({ statusCode: 400, statusMessage: "Ticket ID required" });
+  }
 
-  const ticket = readJSON<SupportTicket[]>('tickets.json').find(t => t.id === id)
-  if (!ticket) throw createError({ status: 404, statusText: 'Ticket not found' })
+  const ticket = readJSON<SupportTicket[]>("tickets.json").find(
+    (item) => item.id === id,
+  );
+  if (!ticket) {
+    throw createError({ statusCode: 404, statusMessage: "Ticket not found" });
+  }
 
-  return createResponse(ticket)
-})
+  return createResponse(ticket);
+});

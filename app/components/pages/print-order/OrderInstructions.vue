@@ -1,5 +1,5 @@
 <template>
-  <div class="order-instruction mb-2 mt-4">
+  <div class="order-instruction border-top pt-4 mt-4">
     Cara Pembayaran BCA Virtual Account <b>via klik BCA Bisnis</b><br />
     <ol class="mb-2" id="inline-style-print-order-002">
       <li>Login ke akun klikBCA Bisnis Anda</li>
@@ -25,5 +25,9 @@
       <li>Masukkan respon dari KeyBCA apu1i lalu "Kirim"</li>
       <li>Pembayaran selesai, simpan bukti pembayaran Anda</li>
     </ol>
+    <p class="order-note mb-0 mt-4">
+      Mohon segera lakukan pembayaran. Pengiriman pesanan produk diprioritaskan
+      berdasarkan status pembayaran yang kami terima terlebih dahulu.
+    </p>
   </div>
 </template>

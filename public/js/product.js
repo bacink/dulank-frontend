@@ -406,7 +406,7 @@ btn_hitung.addEventListener('click',()=>{
 btn_custom_size.addEventListener('click',(e) => {
     e.stopImmediatePropagation()
     tableSpec("hide")
-    let value_btn = btn_custom_size.textContent == "Custom" ? "Cancel" : "Custom"
+    let value_btn = btn_custom_size.textContent.trim() == "Custom" ? "Cancel" : "Custom"
     btn_custom_size.innerHTML = value_btn
     if(value_btn == "Custom"){
         document.querySelector('#info-custom').classList.add('d-none')

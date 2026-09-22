@@ -1,11 +1,15 @@
-import type { Order } from '#server/types/order'
+import type { Order } from "#server/types/order";
 
 export default defineEventHandler((event) => {
-  const id = getRouterParam(event, 'id')
-  if (!id) throw createError({ statusCode: 400, statusMessage: 'Order ID required' })
+  const id = getRouterParam(event, "id");
+  if (!id) {
+    throw createError({ statusCode: 400, statusMessage: "Order ID required" });
+  }
 
-  const order = readJSON<Order[]>('orders.json').find(o => o.id === id)
-  if (!order) throw createError({ status: 404, statusText: 'Order not found' })
+  const order = readJSON<Order[]>("orders.json").find((item) => item.id === id);
+  if (!order) {
+    throw createError({ statusCode: 404, statusMessage: "Order not found" });
+  }
 
-  return createResponse(order)
-})
+  return createResponse(order);
+});

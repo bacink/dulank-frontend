@@ -18,7 +18,6 @@ const { products } = useProductList();
     <PagesProductListProductHeader />
     <main>
       <PagesProductListProductCarousel :products="products" />
-
       <PagesProductListProductGrid :products="products" />
     </main>
   </div>

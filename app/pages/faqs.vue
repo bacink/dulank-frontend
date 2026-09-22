@@ -12,7 +12,7 @@ const { faqs } = useFaqs();
 <template>
   <div class="dulank-page dulank-page-faqs">
     <div class="container mt-3">
-      <p class="text-standard">Home > Faqs</p>
+      <p class="text-standard">Home &gt; Faqs</p>
     </div>
     <main>
       <div class="container my-5">

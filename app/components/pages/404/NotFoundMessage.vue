@@ -1,6 +1,9 @@
 <template>
-  <div class="text-center my-5">
-    <img alt="" class="w-50 mb-3" src="/images/404.svg" />
+  <div
+    class="d-flex flex-column align-items-center justify-content-center text-center w-100 py-5"
+    style="min-height: 420px"
+  >
+    <img alt="Page not found" class="mb-3 d-block mx-auto" src="/images/404.svg" width="260" />
     <h2>Page Not Found</h2>
   </div>
 </template>
